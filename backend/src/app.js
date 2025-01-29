@@ -16,4 +16,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to HealthSense API" });
 });
 
+const healthRoutes = require("./routes/healthRoutes");
+app.use("/api/health", healthRoutes);
+
 module.exports = app;

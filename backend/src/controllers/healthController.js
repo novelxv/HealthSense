@@ -39,4 +39,15 @@ const getAirQualityAndWeather = async (req, res) => {
   }
 };
 
+const getHistoricalData = async (req, res) => {
+  const { city } = req.params;
+
+  try {
+    const data = await HistoryModel.getHistoricalData(city);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching historical data", error });
+  }
+};
+
 module.exports = { getAirQualityAndWeather, getHistoricalData };

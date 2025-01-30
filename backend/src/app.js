@@ -17,6 +17,9 @@ app.get("/", (req, res) => {
 });
 
 const healthRoutes = require("./routes/healthRoutes");
+const educationRoutes = require("./routes/educationRoutes");
+
 app.use("/api/health", healthRoutes);
+app.use("/api/education", educationRoutes);
 
 module.exports = app;

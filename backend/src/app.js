@@ -18,8 +18,10 @@ app.get("/", (req, res) => {
 
 const healthRoutes = require("./routes/healthRoutes");
 const educationRoutes = require("./routes/educationRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 app.use("/api/health", healthRoutes);
 app.use("/api/education", educationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 module.exports = app;

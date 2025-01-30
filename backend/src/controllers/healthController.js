@@ -1,33 +1,42 @@
-const HealthData = require("../models/healthDataModel");
+const OpenAQService = require("../services/openaqService");
+const WeatherService = require("../services/weatherService");
+const HistoryModel = require("../models/historyModel");
 
-const getAllHealthData = async (req, res) => {
-  try {
-    const data = await HealthData.getAllHealthData();
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching data", error });
-  }
-};
+const getAirQualityAndWeather = async (req, res) => {
+  const { city } = req.params;
 
-const getHealthDataByLocation = async (req, res) => {
   try {
-    const data = await HealthData.getHealthDataByLocation(req.params.location);
-    if (!data) {
-      return res.status(404).json({ message: "Data not found" });
+    // Ambil data dari OpenAQ dan OpenWeatherMap
+    const airQuality = await OpenAQService.getAirQualityByCity(city);
+    const weather = await WeatherService.getWeatherByCity(city);
+
+    if (!airQuality || !weather) {
+      // Jika tidak ada data real-time, ambil dari database historis
+      const historicalData = await HistoryModel.getHistoricalData(city);
+      if (historicalData.length === 0) {
+        return res.status(404).json({ message: "Data not found" });
+      }
+      return res.json({ message: "Showing historical data", data: historicalData[0] });
     }
-    res.json(data);
+
+    // Simpan data baru ke database
+    const newData = {
+      location: city,
+      pm25: airQuality.pm25,
+      pm10: airQuality.pm10,
+      no2: airQuality.no2,
+      co: airQuality.co,
+      temperature: weather.temperature,
+      humidity: weather.humidity,
+      recorded_at: new Date(),
+    };
+
+    await HistoryModel.saveAirQualityData(newData);
+
+    res.json({ airQuality, weather });
   } catch (error) {
     res.status(500).json({ message: "Error fetching data", error });
   }
 };
 
-const addHealthData = async (req, res) => {
-  try {
-    const newData = await HealthData.addHealthData(req.body);
-    res.status(201).json(newData);
-  } catch (error) {
-    res.status(500).json({ message: "Error adding data", error });
-  }
-};
-
-module.exports = { getAllHealthData, getHealthDataByLocation, addHealthData };
+module.exports = { getAirQualityAndWeather, getHistoricalData };

@@ -1,13 +1,18 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const menuItems = [
     { name: "Beranda", path: "/" },
     { name: "Dashboard", path: "/dashboard" },
     { name: "Artikel", path: "/articles" },
     { name: "Tentang Kami", path: "/about" },
   ];
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
     <nav className="navbar">
@@ -18,22 +23,25 @@ const Navbar = () => {
         />
       </div>
 
-      <ul className="navbar-menu">
+      <button className="burger-menu" onClick={toggleMenu}>
+        <span className="burger-line"></span>
+        <span className="burger-line"></span>
+        <span className="burger-line"></span>
+      </button>
+      
+      <ul className={`navbar-menu ${isMenuOpen ? "open" : ""}`}>
         {menuItems.map((item) => (
-            <li key={item.name} className="menu-item">
+          <li key={item.name} className="menu-item">
             <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                isActive ? "active" : ""
-                }
+              to={item.path}
+              className={({ isActive }) => (isActive ? "active" : "")}
             >
-                {item.name}
+              {item.name}
             </NavLink>
             <div className="menu-line"></div>
-            </li>
+          </li>
         ))}
-        </ul>
-
+      </ul>
 
       <div className="search-container">
         <input type="text" placeholder="Cari Lokasi" className="search-input" />

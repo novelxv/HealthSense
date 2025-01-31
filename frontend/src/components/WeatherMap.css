@@ -2,61 +2,75 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  .weather-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .weather-card {
-    background-color: #f3f4f6;
     padding: 1rem;
-    border-radius: var(--border-radius);
-    flex-shrink: 0;
-  }
-  
-  .weather-details {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.weather-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
-  }
-  
-  .location-info {
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.weather-card {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    width: 300px;
+    min-width: 280px; /* Menambahkan lebar minimum */
+}
+
+.weather-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.location-info {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-  }
-  
-  .location {
+}
+
+.location {
     font-size: 0.875rem;
-  }
-  
-  .temperature {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.temperature {
     font-size: 1.5rem;
     font-weight: bold;
-  }
-  
-  .condition {
+    color: var(--primary-color);
+}
+
+.condition {
     font-size: 0.875rem;
-  }
-  
-  .aqi-info {
+    color: var(--text-light);
+}
+
+.aqi-info {
     text-align: center;
-  }
-  
-  .aqi-value {
+}
+
+.aqi-value {
     font-size: 1.875rem;
     font-weight: bold;
-  }
-  
-  .aqi-label {
+    color: var(--accent-color);
+}
+
+.aqi-label {
     font-size: 0.875rem;
-  }
-  
-  .warning-banner {
+    color: var(--text-light);
+}
+
+.warning-banner {
     background-color: var(--accent-color);
     color: var(--white);
     padding: 1rem;
@@ -65,43 +79,51 @@
     align-items: center;
     gap: 0.5rem;
     flex: 1;
-  }
-  
-  .warning-icon {
+    font-size: 0.875rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.warning-icon {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-  }
-  
-  .map-container {
-    height: 400px;
+}
+
+.map-container {
+    height: 500px;
+    width: 100%;
+    max-width: 100%; /* Membatasi lebar maksimum */
     border-radius: var(--border-radius);
     overflow: hidden;
-  }
-  
-  .map {
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.map {
     height: 100%;
     width: 100%;
-  }
-  
-  @media (max-width: 768px) {
+    border-radius: var(--border-radius);
+}
+
+@media (max-width: 768px) {
     .weather-info {
-      flex-direction: column;
+        flex-direction: column;
+        align-items: center;
     }
-  
+
     .weather-card {
-      width: 100%;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.70);
+        width: 100%;
+        border-radius: var(--border-radius);
+        background: rgba(255, 255, 255, 0.90);
     }
-  
+
     .warning-banner {
-      width: 100%;
+        width: 100%;
+        font-size: 0.75rem;
     }
-  
+
     .map-container {
-      height: 300px;
+        height: 300px;
     }
-  }
-  
-  
+}

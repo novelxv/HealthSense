@@ -20,10 +20,12 @@ const graphRoutes = require("./routes/graphRoutes");
 const healthRoutes = require("./routes/healthRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 
 app.use("/api/graph", graphRoutes);
 app.use("/api/health", healthRoutes);
 app.use("/api/education", educationRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/subscribe", subscriptionRoutes);
 
 module.exports = app;

@@ -70,47 +70,76 @@
     display: flex;
     align-items: center;
     position: relative;
+    width: 350px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    background: linear-gradient(to right, #BDE3FF, #FFFD9B);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    color: black;
   }
   
   .search-input:focus {
     outline: none;
-    border: 2px solid #1e4976;
-    box-shadow: 0 0 5px rgba(30, 73, 118, 0.3);
-  }
-  
-  .search-input {
-    color: black;
-    padding: 0.75rem 1rem;
-    padding-right: 3rem;
-    border: none;
-    border-radius: 50px;
-    width: 350px;
-    font-size: 0.9rem;
-    background: linear-gradient(to right, #a8d5ff, #e3ffd3);
-    outline: none;
-  }
-  
-  .search-input::placeholder {
-    color: #333;
-    opacity: 0.7;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid;
   }
   
   .search-button {
     position: absolute;
-    right: 0.5rem;
+    right: 15px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 8px;
   }
   
   .search-icon {
     width: 20px;
     height: 20px;
+    color: #666;
+  }
+  
+  .suggestions-list {
+    border: 1px solid;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1000;
+  }
+  
+  .suggestions-list li {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #b7b7b7;
+    font-size: 16px;
     color: #333;
+  }
+  
+  .suggestions-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .suggestions-list li:hover {
+    background-color: #f8f8f8;
+  }
+  
+  .suggestions-list li.disabled {
+    color: #999;
+    cursor: default;
+    pointer-events: none;
+    font-style: italic;
   }
   
   .burger-menu {

@@ -34,6 +34,7 @@
     font-weight: 600;
     margin: 0;
     margin-bottom: 4px;
+    color: white;
   }
   
   .member-role {
@@ -49,8 +50,8 @@
   }
   
   .social-link {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background-color: white;
     display: flex;

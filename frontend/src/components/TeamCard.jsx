@@ -14,13 +14,13 @@ const TeamCard = ({ name, role, photoPath, github, email, instagram }) => {
 
       <div className="social-links">
         <a href={github} target="_blank" rel="noopener noreferrer" className="social-link">
-          <img src="../../public/aboutus/GithubIcon.png" alt="GitHub" />
+          <img src="../../aboutus/GithubIcon.png" alt="GitHub" />
         </a>
         <a href={`mailto:${email}`} className="social-link">
-          <img src="../../public/aboutus/MailIcon.png" alt="Email" />
+          <img src="../../aboutus/MailIcon.png" alt="Email" />
         </a>
         <a href={instagram} target="_blank" rel="noopener noreferrer" className="social-link">
-          <img src="../../public/aboutus/IgIcon.png" alt="Instagram" />
+          <img src="../../aboutus/IgIcon.png" alt="Instagram" />
         </a>
       </div>
     </div>

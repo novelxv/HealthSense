@@ -15,7 +15,7 @@ const AboutPage = () => {
         {
             name: "Thea Josephine H",
             role: "Developer",
-            photoPath: "../../public/aboutus/team/thea.jpeg",
+            photoPath: "../../aboutus/team/thea.jpeg",
             github: "https://github.com/pandaandsushi",
             email: "13522012@std.stei.itb.ac.id",
             instagram: "https://instagram.com/tjh9804",
@@ -40,10 +40,10 @@ const AboutPage = () => {
             </h1>
 
             <div className="aboutus-image-grid">
-            <img src="../../public/aboutus/im1.png" alt="Environmental care" />
-            <img src="../../public/aboutus/im2.png" alt="Healthcare" />
-            <img src="../../public/aboutus/im3.png" alt="Nature" />
-            <img src="../../public/aboutus/im4.png" alt="Wellness" />
+            <img src="../../aboutus/im1.png" alt="Environmental care" />
+            <img src="../../aboutus/im2.png" alt="Healthcare" />
+            <img src="../../aboutus/im3.png" alt="Nature" />
+            <img src="../../aboutus/im4.png" alt="Wellness" />
             </div>
         </section>
 
@@ -81,12 +81,12 @@ const AboutPage = () => {
                 </p>
             </div>
             <div className="work-image">
-                <img src="../../public/aboutus/im5.png" alt="Child with plant" />
+                <img src="../../aboutus/im5.png" alt="Child with plant" />
             </div>
         </section>
         <section className="how-we-work">
             <div className="work-image">
-                <img src="../../public/aboutus/im7.png" alt="Girl take a deep breath" />
+                <img src="../../aboutus/im7.png" alt="Girl take a deep breath" />
             </div>
             <div className="work-content">
                 <h2>Bagaimana Kami Bekerja</h2>

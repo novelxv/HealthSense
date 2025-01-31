@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const searchRef = useRef(null); // Ref untuk search box
 
   const menuItems = [
     { name: "Beranda", path: "/" },
@@ -12,15 +15,42 @@ const Navbar = () => {
     { name: "Tentang Kami", path: "/about" },
   ];
 
+  const allLocations = ["Jakarta", "Surabaya", "Bandung", "Jember", "Malang", "Yogyakarta"];
+
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    if (value.length > 0) {
+      const filtered = allLocations.filter((loc) =>
+        loc.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered.length > 0 ? filtered : ["Kota tidak ditemukan"]);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  // Fungsi untuk menutup suggestions saat klik di luar search box
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSuggestions([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img
-          src="../../public/logo-healthsense.png"
-          alt="HealthSense Logo"
-        />
+        <img src="../../logo-healthsense.png" alt="HealthSense Logo" />
       </div>
 
       <button className="burger-menu" onClick={toggleMenu}>
@@ -28,7 +58,7 @@ const Navbar = () => {
         <span className="burger-line"></span>
         <span className="burger-line"></span>
       </button>
-      
+
       <ul className={`navbar-menu ${isMenuOpen ? "open" : ""}`}>
         {menuItems.map((item) => (
           <li key={item.name} className="menu-item">
@@ -43,8 +73,15 @@ const Navbar = () => {
         ))}
       </ul>
 
-      <div className="search-container">
-        <input type="text" placeholder="Cari Lokasi" className="search-input" />
+      {/* Search Box */}
+      <div className="search-container" ref={searchRef}>
+        <input
+          type="text"
+          placeholder="Cari Lokasi"
+          className="search-input"
+          value={query}
+          onChange={handleSearchChange}
+        />
         <button className="search-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,6 +98,23 @@ const Navbar = () => {
             />
           </svg>
         </button>
+
+        {/* Tampilkan rekomendasi */}
+        {suggestions.length > 0 && (
+          <ul className="suggestions-list">
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  if (suggestion !== "Kota tidak ditemukan") setQuery(suggestion);
+                  setSuggestions([]);
+                }}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </nav>
   );

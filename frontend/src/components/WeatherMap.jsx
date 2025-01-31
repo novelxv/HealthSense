@@ -35,7 +35,7 @@ export default function WeatherMap({ selectedCity }) {
         </div>
       </div>
 
-      <div className="map-container">
+      {/* <div className="map-container">
         <MapContainer center={[cityData.lat, cityData.lng]} zoom={10} className="map">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -47,6 +47,13 @@ export default function WeatherMap({ selectedCity }) {
             </Popup>
           </CircleMarker>
         </MapContainer>
+      </div> */}
+      <div className="map-container">
+        <img
+          src="/heatmap.jpg"
+          alt="Heatmap Kualitas Udara"
+          className="heatmap-image"
+        />
       </div>
     </div>
   );

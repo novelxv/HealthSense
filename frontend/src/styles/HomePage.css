@@ -19,7 +19,7 @@
     width: 100vw;
     height: 80vh;
     position: relative;
-    background-image: url("../assets/HomepageHealth.jpg");
+    background-image: url("../../public/HomepageHealth.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -67,7 +67,7 @@
   .highlight {
     color: black;
     background-color: #FDFF9D;
-    padding: 0.25rem 1rem;
+    padding: 0.15rem 1rem;
     display: inline-block;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -122,10 +122,12 @@
   }
   
   .newsletter-content {
+    display: flex;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    justify-content: space-between;
   }
   
   .newsletter-content h2 {
@@ -140,8 +142,17 @@
   
   .newsletter-input {
     display: flex;
+    max-height: 47px;
     gap: 0.5rem;
     max-width: 400px;
+    align-items: center;
+    width: 100%; 
+  }
+
+
+  .input-box {
+    background-color: white;
+    color: black;
   }
   
   .newsletter-input input {
@@ -150,10 +161,11 @@
     border: none;
     border-radius: 4px;
     font-size: 1rem;
+    background-color: white;
   }
   
   .newsletter-button {
-    background: white;
+    background: #B2DAFF;
     border: none;
     color: #1e4976;
     width: 40px;
@@ -166,7 +178,7 @@
   }
   
   .newsletter-button:hover {
-    background: #f0f0f0;
+    background: #A1C7EA;
   }
   
   /* Features Section */
@@ -206,61 +218,6 @@
     gap: 1.5rem;
   }
   
-  .feature-card {
-    background: linear-gradient(to right, #ffffff, #B2DAFF);
-    padding: 2rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    border: 1px solid #e0e0e0;
-  }
-  
-  .feature-icon {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-  }
-  
-  .feature-content {
-    flex: 1;
-  }
-  
-  .feature-content h3 {
-    font-size: 1.25rem;
-    color: #000;
-    margin: 0;
-    margin-bottom: 0.5rem;
-  }
-  
-  .feature-line {
-    height: 2px;
-    background-color: #000;
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-  
-  .feature-content p {
-    color: #333;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-  
-  .feature-button {
-    color: #1e4976;
-    background: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .feature-button:hover {
-    background: #f5f5f5;
-  }
-  
   /* Responsive Design */
   @media (max-width: 768px) {
     .hero-content,
@@ -268,19 +225,19 @@
     .features-section {
       padding: 0 1rem;
     }
-  
-    .hero-title {
+
+    
+    .normal-text, .bold-text {
       font-size: 2rem;
     }
-  
-    .feature-card {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+
+    .newsletter-content {
+        display: flex;
+        flex-direction: column;
     }
-  
-    .feature-icon {
-      margin-bottom: 1rem;
+
+    .features-title-wrapper {
+        padding-top: 2rem;
     }
   }
   

@@ -1,47 +1,43 @@
 import React from 'react';
 import { Button } from '../components/Button';
 import "../styles/HomePage.css";
-import Navbar from '../components/Navbar';
-
-const FeatureCard = ({ icon, title, description, buttonText }) => (
-  <div className="feature-card">
-    <img src={icon} alt={title} className="feature-icon" />
-    <div className="feature-content">
-      <h3>{title}</h3>
-      <div className="feature-line"></div>
-      <p>{description}</p>
-      <button className="feature-button">
-        {buttonText} →
-      </button>
-    </div>
-  </div>
-);
+import { useNavigate } from "react-router-dom";
+import FeatureCard from '../components/FeatureCard';
 
 const HomePage = () => {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/dashboard");
+      };
+
   const features = [
     {
-      icon: "../assets/Bulb.png",
+      icon: "../../Bulb.png",
       title: "Informasi Tepat, Hidup Sehat",
       description: "Jelajahi artikel yang membahas polusi udara, perubahan iklim, dan tips menjaga kesehatan berdasarkan kondisi lingkungan terkini",
-      buttonText: "Baca artikel"
+      buttonText: "Baca artikel",
+      link: "/articles"
     },
     {
-      icon: "../assets/Shield.png",
+      icon: "../../Shield.png",
       title: "Cegah Lebih Awal, Lindungi Diri",
       description: "Dengan analisis data lingkungan dan tren cuaca, ketahui kapan udara buruk dapat meningkatkan risiko gangguan pernapasan.",
-      buttonText: "Cek sekarang"
+      buttonText: "Cek sekarang",
+      link: "/dashboard"
     },
     {
-      icon: "../assets/Warning.png",
+      icon: "../../Warning.png",
       title: "Cegah Lebih Awal, Lindungi Diri",
       description: "Dengan analisis data lingkungan dan tren cuaca, ketahui kapan udara buruk dapat meningkatkan risiko gangguan pernapasan.",
-      buttonText: "Cek sekarang"
+      buttonText: "Cek sekarang",
+      link: "/dashboard"
     },
     {
-      icon: "../assets/Magnifying.png",
+      icon: "../../Magnifying.png",
       title: "Pantau Tren, Ambil Keputusan Lebih Baik",
       description: "Jelajahi data kualitas udara dan cuaca dalam bentuk grafik interaktif untuk memahami bagaimana perubahan lingkungan memengaruhi kesehatan Anda",
-      buttonText: "Cek sekarang"
+      buttonText: "Cek sekarang",
+      link: "/dashboard"
     }
   ];
 
@@ -70,7 +66,7 @@ const HomePage = () => {
                 );
             })}
             </div>
-            <button className="hero-cta">
+            <button className="hero-cta" onClick={handleClick}>
             Cek lingkunganmu
             <span className="arrow-icon">→</span>
             </button>
@@ -81,12 +77,14 @@ const HomePage = () => {
       {/* Newsletter Section */}
       <section className="newsletter-section">
         <div className="newsletter-content">
-          <h2>Jangan Tertinggal Informasi!</h2>
-          <p>Langganan notifikasi untuk mendapatkan informasi terbaru. Gratis tanpa dipungut biaya!</p>
-          <div className="newsletter-input">
-            <input type="email" placeholder="Masukkan email" />
-            <button className="newsletter-button">→</button>
-          </div>
+            <div>
+                <h2>Jangan Tertinggal Informasi!</h2>
+                <p>Langganan notifikasi untuk mendapatkan informasi terbaru. Gratis tanpa dipungut biaya!</p>
+            </div>
+            <div className="newsletter-input">
+                <input type="email" placeholder="Masukkan email" />
+                <button className="newsletter-button">→</button>
+            </div>
         </div>
       </section>
 

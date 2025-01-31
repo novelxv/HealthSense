@@ -1,0 +1,99 @@
+/* Features Section */
+.feature-card {
+  max-width: 1100px;
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  background: linear-gradient(270deg, #B2DAFF 0%, rgba(255, 255, 255, 0.45) 100%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px; /* Thickness of the line */
+  background-color: #184E77; /* Line color */
+  border-radius: 8px 0 0 8px; /* Rounded corners on the left */
+}
+
+.feature-card-content {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 2rem;
+  padding-left: 10px; /* Space to avoid overlap */
+}
+
+.feature-icon {
+  width: 150px;
+  height: 200px;
+  object-fit: contain; 
+}
+
+.feature-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.feature-content h3 {
+  color: #000;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+.feature-line {
+  height: 2px;
+  background-color: #000;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.feature-content p {
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 20px;
+}
+
+.feature-button {
+  align-self: flex-end;
+  color: #1e4976;
+  background: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feature-button:hover {
+  background: #f5f5f5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .feature-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feature-icon {
+    margin-bottom: 1rem;
+  }
+
+  .feature-button {
+    align-self: center;
+  }
+}

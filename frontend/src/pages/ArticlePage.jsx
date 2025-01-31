@@ -18,7 +18,7 @@ const ArticlePage = () => {
     {
       id: 2,
       title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun2.png",
       source: "HariiniDidunia.com",
       category: "Artikel Utama",
       isLarge: false,
@@ -26,7 +26,7 @@ const ArticlePage = () => {
     {
       id: 3,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun3.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -34,7 +34,7 @@ const ArticlePage = () => {
     {
       id: 4,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun4.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -42,7 +42,7 @@ const ArticlePage = () => {
     {
       id: 5,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun5.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -50,7 +50,7 @@ const ArticlePage = () => {
     {
       id: 6,
       title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun6.jpg",
       source: "HariiniDidunia.com",
       category: "Artikel Utama",
       isLarge: true,
@@ -58,7 +58,7 @@ const ArticlePage = () => {
     {
       id: 7,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun7.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -66,23 +66,15 @@ const ArticlePage = () => {
     {
       id: 8,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun.png",
+      image: "../../public/AirTerjun8.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
     },
     {
-        id: 8,
-        title: "Liburan di Alam Kota Jakarta yang Bersih!",
-        image: "../../public/AirTerjun.png",
-        source: "Jakarta Barat",
-        category: "Kategori",
-        isLarge: false,
-      },
-      {
         id: 9,
         title: "Liburan di Alam Kota Jakarta yang Bersih!",
-        image: "../../public/AirTerjun.png",
+        image: "../../public/AirTerjun9.jpg",
         source: "Jakarta Barat",
         category: "Kategori",
         isLarge: false,
@@ -90,7 +82,7 @@ const ArticlePage = () => {
       {
         id: 10,
         title: "Liburan di Alam Kota Jakarta yang Bersih!",
-        image: "../../public/AirTerjun.png",
+        image: "../../public/AirTerjun10.jpg",
         source: "Jakarta Barat",
         category: "Kategori",
         isLarge: false,

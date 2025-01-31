@@ -1,6 +1,6 @@
 import "../styles/ArticlePage.css";
 import { useState, useRef, useEffect } from "react";
-
+import SearchBar from "../components/SearchBar";
 const ArticlePage = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -10,7 +10,7 @@ const ArticlePage = () => {
     {
       id: 1,
       title: "Liburan di Alam Kota Jakarta yang Bersih! ",
-      image: "../../public/AirTerjun.png",
+      image: "../../AirTerjun.png",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: true,
@@ -18,7 +18,7 @@ const ArticlePage = () => {
     {
       id: 2,
       title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../public/AirTerjun2.png",
+      image: "../../AirTerjun2.png",
       source: "HariiniDidunia.com",
       category: "Artikel Utama",
       isLarge: false,
@@ -26,7 +26,7 @@ const ArticlePage = () => {
     {
       id: 3,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun3.jpg",
+      image: "../../AirTerjun3.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -34,7 +34,7 @@ const ArticlePage = () => {
     {
       id: 4,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun4.jpg",
+      image: "../../AirTerjun4.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -42,7 +42,7 @@ const ArticlePage = () => {
     {
       id: 5,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun5.jpg",
+      image: "../../AirTerjun5.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -50,7 +50,7 @@ const ArticlePage = () => {
     {
       id: 6,
       title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../public/AirTerjun6.jpg",
+      image: "../../AirTerjun6.jpg",
       source: "HariiniDidunia.com",
       category: "Artikel Utama",
       isLarge: true,
@@ -58,7 +58,7 @@ const ArticlePage = () => {
     {
       id: 7,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun7.jpg",
+      image: "../../AirTerjun7.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -66,7 +66,7 @@ const ArticlePage = () => {
     {
       id: 8,
       title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../public/AirTerjun8.jpg",
+      image: "../../AirTerjun8.jpg",
       source: "Jakarta Barat",
       category: "Kategori",
       isLarge: false,
@@ -74,7 +74,7 @@ const ArticlePage = () => {
     {
         id: 9,
         title: "Liburan di Alam Kota Jakarta yang Bersih!",
-        image: "../../public/AirTerjun9.jpg",
+        image: "../../AirTerjun9.jpg",
         source: "Jakarta Barat",
         category: "Kategori",
         isLarge: false,
@@ -82,7 +82,7 @@ const ArticlePage = () => {
       {
         id: 10,
         title: "Liburan di Alam Kota Jakarta yang Bersih!",
-        image: "../../public/AirTerjun10.jpg",
+        image: "../../AirTerjun10.jpg",
         source: "Jakarta Barat",
         category: "Kategori",
         isLarge: false,
@@ -154,30 +154,7 @@ const ArticlePage = () => {
     <div>
       <main className="main-content">
         <div className="search-container-1" ref={searchRef}>
-          <input
-            type="text"
-            placeholder="Cari Lokasi"
-            className="search-input-1"
-            value={query}
-            onChange={handleSearchChange}
-          />
-          <button className="search-button-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="search-icon-1"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-
+          <SearchBar isNavbar={false} content="Jelajahi artikel" allLocations={[]}/>
           {suggestions.length > 0 && (
             <ul className="suggestions-list-1">
               {suggestions.map((suggestion, index) => (

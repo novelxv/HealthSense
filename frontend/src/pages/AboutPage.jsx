@@ -23,7 +23,7 @@ const AboutPage = () => {
         {
             name: "Raffael Boymian S",
             role: "Developer",
-            photoPath: "../../public/aboutus/team/El.jpg",
+            photoPath: "../../aboutus/team/El.jpg",
             github: "https://github.com/slntkllr01",
             email: "13522046@std.stei.itb.ac.id",
             instagram: "https://instagram.com/faelzard",

@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ArticlePage from "./pages/ArticlePage";
 import AboutPage from "./pages/AboutPage";
 import Navbar from "./components/Navbar";
+import ArticleDetails from "./pages/ArticleDetailsPage";
 function App() {
   return (
     <Router>

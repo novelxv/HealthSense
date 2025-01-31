@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./SearchBar.css";
 
-const SearchBar = ({ isNavbar, content, allLocations }) => {
+export default function SearchBar({ isNavbar, content, allLocations }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const searchRef = useRef(null);
@@ -34,21 +34,21 @@ const SearchBar = ({ isNavbar, content, allLocations }) => {
   }, []);
 
   return (
-    <div className="search-container" ref={searchRef}>
+    <div className={isNavbar ? "search-container" : "search-container-1"} ref={searchRef}>
       <input
         type="text"
         placeholder={content}
-        className={`search-input ${isNavbar ? "navbar-style" : "plain-style"}`}
+        className={isNavbar ? "search-input" : "search-input-1"}
         value={query}
         onChange={handleSearchChange}
       />
-      <button className="search-button">
+      <button className={isNavbar ? "search-button" : "search-button-1"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          className="search-icon"
+          className={isNavbar ? "search-icon" : "search-icon-1"}
         >
           <path
             strokeLinecap="round"
@@ -76,6 +76,4 @@ const SearchBar = ({ isNavbar, content, allLocations }) => {
       )}
     </div>
   );
-};
-
-export default SearchBar;
+}

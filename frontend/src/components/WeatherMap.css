@@ -1,0 +1,105 @@
+.weather-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .weather-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .weather-card {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+  }
+  
+  .weather-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .location {
+    font-size: 0.875rem;
+  }
+  
+  .temperature {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .condition {
+    font-size: 0.875rem;
+  }
+  
+  .aqi-info {
+    text-align: center;
+  }
+  
+  .aqi-value {
+    font-size: 1.875rem;
+    font-weight: bold;
+  }
+  
+  .aqi-label {
+    font-size: 0.875rem;
+  }
+  
+  .warning-banner {
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  
+  .warning-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  
+  .map-container {
+    height: 400px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .map {
+    height: 100%;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .weather-info {
+      flex-direction: column;
+    }
+  
+    .weather-card {
+      width: 100%;
+    }
+  
+    .warning-banner {
+      width: 100%;
+    }
+  
+    .map-container {
+      height: 300px;
+    }
+  }
+  
+  

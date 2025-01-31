@@ -4,7 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ArticlePage from "./pages/ArticlePage";
 import AboutPage from "./pages/AboutPage";
 import Navbar from "./components/Navbar";
-import ArticleDetails from "./pages/ArticleDetailsPage";
+import ArticleDetailsPage from "./pages/ArticleDetailsPage";
 function App() {
   return (
     <Router>
@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/articles" element={<ArticlePage />} />
+        <Route path="/articles/:id" element={<ArticleDetailsPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Router>

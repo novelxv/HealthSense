@@ -39,7 +39,7 @@
     background-size: cover;
     background-position: center;
     min-height: 100vh;
-    padding: 2rem 6rem;
+    padding: 0 6rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,11 +48,14 @@
 
   .search-container-1 {
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
     width: 785px;
-    margin-bottom: 40px;
+    margin: auto;
+    margin-bottom: 20px;
   }
+  
   
   .search-input-1 {
     width: 100%;

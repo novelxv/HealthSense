@@ -46,70 +46,29 @@
     align-items: center;
     justify-content: space-between;
   }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  
-  .logo {
-    height: 32px;
-    width: 32px;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-link {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(to right, #dbeafe, #dcfce7);
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  .search-icon {
-    width: 16px;
-    height: 16px;
-    margin-left: 0.5rem;
-  }
-  
-  /* Main Content Styles */
-  .main {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 2rem 1rem;
+
+  .bg-image {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-image: url("../../DashboardBG.png");
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
   }
-  
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    background-color: #fef3c7;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    display: inline-block;
+
+  .dashboard-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
   }
   
   .chart-card {
     background: var(--white);
     border-radius: var(--border-radius);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
   }
   
@@ -119,22 +78,25 @@
   }
   
   .download-button {
-    background: var(--primary-color);
-    color: var(--white);
+    background: #184E77;
+    color: white;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
-    display: flex;
+    border-radius: 12px;
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 20px;
     font-weight: 500;
     transition: background-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 327px;
+    height: 79px;
+    margin: 20px auto;
   }
   
   .download-button:hover {
-    background-color: #1e3a8a;
+    background-color: #1f6296;
   }
   
   .download-icon {
@@ -142,6 +104,9 @@
     height: 16px;
   }
   
+  .main {
+    margin-top: 70px;
+  }
   /* Responsive Design */
   @media (max-width: 768px) {
     .header > div {
@@ -166,10 +131,7 @@
       justify-content: center;
       margin-top: 1rem;
     }
-  
-    .main {
-      padding: 1rem;
-    }
+
   }
   
   

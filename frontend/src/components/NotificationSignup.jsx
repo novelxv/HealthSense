@@ -1,6 +1,18 @@
 import "./NotificationSignup.css"
+import { useNavigate } from 'react-router-dom';
 
 export default function NotificationSignup() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+      navigate("/#newsletter");
+      setTimeout(() => {
+        const section = document.getElementById("newsletter");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    };
+
   return (
     <div className="notification-signup">
       <h2 className="signup-title">Jangan Tertinggal Informasi!</h2>
@@ -9,7 +21,9 @@ export default function NotificationSignup() {
         <br />
         Gratis tanpa dipungut biaya!
       </p>
-      <button className="signup-button">Langganan sekarang</button>
+      <button className="hero-cta button-subscribe" onClick={handleClick}>
+          Langganan sekarang!
+      </button>
     </div>
   )
 }

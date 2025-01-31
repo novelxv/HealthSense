@@ -88,7 +88,7 @@ const HomePage = () => {
                             );
                         })}
                     </div>
-                    <button className="hero-cta" onClick={handleClick}>
+                    <button id="newsletter" className="hero-cta" onClick={handleClick}>
                         Cek lingkunganmu
                         <span className="arrow-icon">→</span>
                     </button>

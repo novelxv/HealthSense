@@ -4,8 +4,8 @@ export default function HealthRecommendations() {
   return (
     <div className="health-recommendations">
       <div className="recommendations-section">
-        <h2 className="section-title">Potensi Penyakit</h2>
-        <p className="section-description">
+        <h2 className="dashboard-section-title">Potensi Penyakit</h2>
+        <p className="dashboard-section-description">
           Kemungkinan penyakit yang dapat muncul berdasarkan kondisi lingkunganmu saat ini:
         </p>
         <ul className="recommendations-list">
@@ -17,8 +17,8 @@ export default function HealthRecommendations() {
       </div>
 
       <div className="recommendations-section">
-        <h2 className="section-title">Rekomendasi Kesehatan</h2>
-        <p className="section-description">Saran kesehatan berdasarkan potensi penyakit:</p>
+        <h2 className="dashboard-section-title">Rekomendasi Kesehatan</h2>
+        <p className="dashboard-section-description">Saran kesehatan berdasarkan potensi penyakit:</p>
         <ul className="recommendations-list">
           <li>Gunakan jaket</li>
           <li>Makan makanan bergizi</li>

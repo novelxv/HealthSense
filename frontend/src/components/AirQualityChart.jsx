@@ -33,16 +33,10 @@ const data = {
   labels,
   datasets: [
     {
-      label: "Wire transfer",
-      data: [1000, 2500, 2000, 2000, 3500, 2000, 1000, 2000, 3000],
-      borderColor: "rgb(99, 102, 241)",
-      backgroundColor: "rgba(99, 102, 241, 0.5)",
-    },
-    {
       label: "Mobile payment",
-      data: [500, 1500, 1800, 1000, 2000, 1500, 800, 1800, 1200],
-      borderColor: "rgb(236, 72, 153)",
-      backgroundColor: "rgba(236, 72, 153, 0.5)",
+      data: [5, 15, 18, 10, 20, 15, 8, 18, 12],
+      borderColor: "#4A3AFF",
+      backgroundColor: "#4A3AFF",
     },
   ],
 }

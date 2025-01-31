@@ -7,7 +7,7 @@ const AboutPage = () => {
         {
             name: "Novelya Putri R",
             role: "Developer",
-            photoPath: "/path/to/novel-photo.jpg",
+            photoPath: "../../aboutus/team/Novel.JPG",
             github: "https://github.com/novelxv",
             email: "13522096@std.stei.itb.ac.id",
             instagram: "https://instagram.com/novelyaputrir",
@@ -23,7 +23,7 @@ const AboutPage = () => {
         {
             name: "Raffael Boymian S",
             role: "Developer",
-            photoPath: "/path/to/raffael-photo.jpg",
+            photoPath: "../../public/aboutus/team/El.jpg",
             github: "https://github.com/slntkllr01",
             email: "13522046@std.stei.itb.ac.id",
             instagram: "https://instagram.com/faelzard",

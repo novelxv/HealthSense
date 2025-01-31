@@ -91,6 +91,8 @@
   
     .weather-card {
       width: 100%;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.70);
     }
   
     .warning-banner {

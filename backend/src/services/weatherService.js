@@ -3,6 +3,8 @@ const axios = require("axios");
 const getWeatherByCity = async (city) => {
   try {
     const apiKey = process.env.OPENWEATHER_API_KEY;
+    if (!apiKey) throw new Error("API Key for OpenWeatherMap is missing");
+
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../components/Button';
 import "../styles/HomePage.css";
+import Navbar from '../components/Navbar';
 
 const FeatureCard = ({ icon, title, description, buttonText }) => (
   <div className="feature-card">
@@ -46,24 +47,36 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Hero Section */}
-      <section className="hero-section">
+        {/* Hero Section */}
+        <section className="hero-section">
         <div className="hero-content">
-          <div className="hero-titles">
-            {['Lingkungan bersih', 'Hidup sehat', 'Masa depan cerah'].map((text, index) => (
-              <div key={index} className="hero-title-wrapper">
-                <h1 className="hero-title">
-                  <span className="highlight">{text}</span>
-                </h1>
-              </div>
-            ))}
-          </div>
-          <button className="hero-cta">
+            <div className="hero-titles">
+            {['Lingkungan bersih', 'Hidup sehat', 'Masa depan cerah'].map((text, index) => {
+                const words = text.split(' ');
+                const boldWords = words.slice(0, -1);
+                const lastWord = words[words.length - 1];
+                
+                return (
+                <div key={index} className="hero-title-wrapper">
+                    <h1 className="hero-title">
+                    <span className="highlight">
+                        {boldWords.map((word, idx) => (
+                        <span key={idx} className="bold-text">{word} </span>
+                        ))}
+                        <span className="normal-text">{lastWord}</span>
+                    </span>
+                    </h1>
+                </div>
+                );
+            })}
+            </div>
+            <button className="hero-cta">
             Cek lingkunganmu
             <span className="arrow-icon">→</span>
-          </button>
+            </button>
         </div>
-      </section>
+        </section>
+
 
       {/* Newsletter Section */}
       <section className="newsletter-section">

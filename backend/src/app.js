@@ -16,10 +16,12 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to HealthSense API" });
 });
 
+const graphRoutes = require("./routes/graphRoutes");
 const healthRoutes = require("./routes/healthRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 
+app.use("/api/graph", graphRoutes);
 app.use("/api/health", healthRoutes);
 app.use("/api/education", educationRoutes);
 app.use("/api/notifications", notificationRoutes);

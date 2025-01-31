@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/ArticleDetailsPage.css"
+import { formatDistanceToNow } from 'date-fns';
+
 const ArticleDetailsPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -8,15 +10,19 @@ const ArticleDetailsPage = () => {
         id: 2,
         title: "Liburan di Alam Kota Jakarta yang Bersih!",
         location: "Jakarta",
-        created_at: "2023-10-10T12:00:00Z",
+        created_at: "2025-01-10T12:00:00Z",
         category: "Wisata Alam",
-        content: "Jakarta dikenal sebagai kota metropolitan yang sibuk dengan kepadatan penduduk dan kemacetan lalu lintas. Namun, di balik kesibukan tersebut, Jakarta memiliki banyak tempat wisata yang menawarkan udara segar dan kegiatan yang menyehatkan. Berikut adalah 7 tempat wisata sehat di Jakarta yang bisa kamu kunjungi untuk berolahraga dan bersantai:",
-        image: "../../articledetails.png"}
+        content: "Jakarta dikenal sebagai kota metropolitan yang sibuk dengan kepadatan penduduk dan kemacetan lalu lintas. Namun, di balik kesibukan tersebut, Jakarta memiliki banyak tempat wisata yang menawarkan udara segar dan kegiatan yang menyehatkan. Berikut adalah 7 tempat wisata sehat di Jakarta yang bisa kamu kunjungi untuk berolahraga dan bersantai: ",
+        image: "../../articledetails.png"
+    };
+
+    const relativeDate = formatDistanceToNow(new Date(article.created_at), { addSuffix: true });
+
     return (
         <div>
             <main className="main-content">
-                <div className="article-container">
-                <header className="articledetails-header">
+                <div className="articledetails-container">
+                    <header className="articledetails-header">
                         <div className="header-left">
                             <button 
                                 className="articledetails-back-button" 
@@ -27,7 +33,7 @@ const ArticleDetailsPage = () => {
                             <div className="header-text">
                                 <h1 className="articledetails-title">{article.title}</h1>
                                 <div className="articledetails-meta">
-                                    {article.location} - {article.created_at}
+                                    {article.location} - {relativeDate}
                                 </div>
                             </div>
                         </div>
@@ -42,14 +48,15 @@ const ArticleDetailsPage = () => {
 
                     <div className="articledetails-content">
                         <p className="article-intro">
-                        {article.content}
+                            {article.content}
                         </p>
                     </div>
                 </div>
             </main>
         </div>
-    )
-}
+    );
+};
+
 
 export default ArticleDetailsPage
 

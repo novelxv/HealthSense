@@ -47,7 +47,7 @@ const HomePage = () => {
         <section className="hero-section">
         <div className="hero-content">
             <div className="hero-titles">
-            {['Lingkungan bersih', 'Hidup sehat', 'Masa depan cerah'].map((text, index) => {
+            {['Kenali Udaramu', 'Lindungi Dirimu'].map((text, index) => {
                 const words = text.split(' ');
                 const boldWords = words.slice(0, -1);
                 const lastWord = words[words.length - 1];

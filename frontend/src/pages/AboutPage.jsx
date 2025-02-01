@@ -81,12 +81,12 @@ const AboutPage = () => {
                 </p>
             </div>
             <div className="work-image">
-                <img src="../../aboutus/im5.png" alt="Child with plant" />
+                <img src="../../aboutus/im5.png" alt="Child with plant" className='img1'/>
             </div>
         </section>
         <section className="how-we-work">
             <div className="work-image">
-                <img src="../../aboutus/im7.png" alt="Girl take a deep breath" />
+                <img src="../../aboutus/im7.png" alt="Girl take a deep breath" className='img2'/>
             </div>
             <div className="work-content">
                 <h2>Bagaimana Kami Bekerja</h2>

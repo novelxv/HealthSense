@@ -253,6 +253,13 @@
       padding: 0 1rem;
     }
 
+    .features-title::after {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: auto;
+      left: 0;
+    }
     
     .normal-text, .bold-text {
       font-size: 2rem;

@@ -52,6 +52,9 @@
   @media (max-width: 768px) {
     .notification-signup {
       padding: 1.5rem;
+      min-width: 0;
+      margin-left: 20px;
+      margin-right: 20px;
     }
   }
   

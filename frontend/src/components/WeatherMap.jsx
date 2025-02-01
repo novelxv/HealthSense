@@ -1,4 +1,5 @@
-import { AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import { AlertTriangle, Cloudy } from "lucide-react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "./WeatherMap.css";
 
@@ -10,21 +11,28 @@ const dummyData = {
 };
 
 export default function WeatherMap({ selectedCity }) {
+  const [showAQIPopup, setShowAQIPopup] = useState(false);
   const cityData = dummyData[selectedCity] || dummyData["Jakarta"];
 
   return (
     <div className="weather-section">
       <div className="weather-info">
         <div className="weather-card">
-          <div className="weather-details">
-            <div className="location-info">
-              <p className="location">{selectedCity}</p>
-              <p className="temperature">{cityData.temp}°C</p>
-              <p className="condition">{cityData.condition}</p>
+          <p className="location">{selectedCity}, Jawa Barat</p>
+          <div className="weather-content">
+            <div className="temperature-section">
+              <Cloudy />
+              <div>
+                <p className="temperature">{cityData.temp}°C</p>
+                <p className="condition">{cityData.condition}</p>
+              </div>
             </div>
-            <div className="aqi-info">
-              <p className="aqi-value">{cityData.aqi}</p>
-              <p className="aqi-label">AQI</p>
+            <div className="divider"></div>
+            <div className="aqi-section">
+              <p className="aqi-value">
+                {cityData.aqi} <span className="aqi-label">AQI</span>
+              </p>
+              <span className="info-icon" onClick={() => setShowAQIPopup(true)}>?</span>
             </div>
           </div>
         </div>
@@ -35,6 +43,31 @@ export default function WeatherMap({ selectedCity }) {
         </div>
       </div>
 
+      {showAQIPopup && (
+        <div className="aqi-popup-overlay" onClick={() => setShowAQIPopup(false)}>
+          <div className="aqi-popup" onClick={(e) => e.stopPropagation()}>
+            <h3>Apa itu AQI?</h3>
+            <p>
+              Air Quality Index (AQI) mengukur kualitas udara. Semakin tinggi nilai AQI, semakin
+              berbahaya udara bagi kesehatan. 
+            </p>
+            <ul>
+              <li><b>0-50:</b> Baik ✅</li>
+              <li><b>51-100:</b> Sedang ⚠️</li>
+              <li><b>101-150:</b> Tidak sehat bagi kelompok sensitif ❗</li>
+              <li><b>151-200:</b> Tidak sehat ❌</li>
+              <li><b>201-300:</b> Sangat tidak sehat 🚨</li>
+              <li><b>301+:</b> Berbahaya ☠️</li>
+            </ul>
+            <button className="close-popup" onClick={() => setShowAQIPopup(false)}>Tutup</button>
+          </div>
+        </div>
+      )}
+
+      <div className="map-container">
+        <img src="/heatmap.jpg" alt="Heatmap Kualitas Udara" className="heatmap-image" />
+      </div>
+      
       {/* <div className="map-container">
         <MapContainer center={[cityData.lat, cityData.lng]} zoom={10} className="map">
           <TileLayer
@@ -48,13 +81,8 @@ export default function WeatherMap({ selectedCity }) {
           </CircleMarker>
         </MapContainer>
       </div> */}
-      <div className="map-container">
-        <img
-          src="/heatmap.jpg"
-          alt="Heatmap Kualitas Udara"
-          className="heatmap-image"
-        />
-      </div>
     </div>
   );
 }
+
+

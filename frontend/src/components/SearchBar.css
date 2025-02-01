@@ -55,6 +55,7 @@
     font-size: 16px;
     transition: all 0.3s ease;
     background: white;
+    color: black;
   }
   
   .search-input-1:focus {

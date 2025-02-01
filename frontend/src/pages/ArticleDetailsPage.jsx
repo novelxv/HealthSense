@@ -1,9 +1,11 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/ArticleDetailsPage.css"
+import { useRef } from 'react';
 import { formatDistanceToNow } from 'date-fns';
-
+import SearchBar from '../components/SearchBar';
 const ArticleDetailsPage = () => {
+    const searchRef = useRef(null);
     const { id } = useParams();
     const navigate = useNavigate();
     const article = {
@@ -20,7 +22,7 @@ const ArticleDetailsPage = () => {
 
     return (
         <div>
-            <main className="main-content">
+            <main className="articledetails-main-content">
                 <div className="articledetails-container">
                     <header className="articledetails-header">
                         <div className="header-left">

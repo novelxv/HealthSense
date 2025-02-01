@@ -30,6 +30,8 @@ export default function DashboardPage() {
             <WeatherMap selectedCity={selectedCity} />
           </section>
 
+          <MetricsGrid selectedCity={selectedCity} />
+          
           <NotificationSignup />
 
           <section className="trends-section">
@@ -42,8 +44,6 @@ export default function DashboardPage() {
               <AirQualityChart selectedCity={selectedCity} />
             </div>
           </section>
-
-          <MetricsGrid selectedCity={selectedCity} />
 
           <div className="download-container">
             <button className="download-button" onClick={handleDownload}>

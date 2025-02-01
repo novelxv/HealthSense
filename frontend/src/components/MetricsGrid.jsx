@@ -37,9 +37,10 @@ const sparklineData = {
 
 export default function MetricsGrid() {
   const metrics = [
-    { title: "Kadar CO2", value: "635", unit: "PPM", change: "+3.01%" },
-    { title: "Kadar PM2.5", value: "635", unit: "PPM", change: "+3.01%" },
-    { title: "Kadar Ozon", value: "635", unit: "PPM", change: "+3.01%" },
+    { title: "Kadar PM2.5", value: "635", unit: "µg/m³"},
+    { title: "Kadar PM10", value: "635", unit: "µg/m³"},
+    { title: "Kadar NO2", value: "635", unit: "PPB"},
+    { title: "Kadar CO", value: "635", unit: "PPM"},
   ]
 
   return (
@@ -55,10 +56,6 @@ export default function MetricsGrid() {
               <span className="value">{metric.value}</span>
               <span className="unit">{metric.unit}</span>
             </div>
-            <span className="metric-change">{metric.change}</span>
-          </div>
-          <div className="sparkline">
-            <Line options={sparklineOptions} data={sparklineData} />
           </div>
         </div>
       ))}

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import FeatureCard from '../components/FeatureCard';
 import "../styles/HomePage.css";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://healthsense-production.up.railway.app";
+
 const HomePage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -17,20 +19,50 @@ const HomePage = () => {
         setEmail(event.target.value);
     };
 
-    const handleSubscribe = () => {
+    const handleSubscribe = async () => {
         if (!email || !/\S+@\S+\.\S+/.test(email)) {
             setErrorMessage("Masukkan email yang valid!");
+            setShowPopup(true);
+            setTimeout(() => {
+                setShowPopup(false);
+                setErrorMessage("");
+            }, 3000);
             return;
         }
-
-        setErrorMessage(""); // Hapus pesan error
-        setShowPopup(true);
-
-        // Sembunyikan popup setelah 3 detik
-        setTimeout(() => {
-            setShowPopup(false);
-        }, 3000);
-    };
+    
+        setErrorMessage(""); // Reset error message
+        console.log("Backend URL:", backendUrl); // debug
+        try {
+            const response = await fetch(`${backendUrl}/api/subscribe`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email })
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false);
+                }, 3000);
+            } else {
+                setErrorMessage(data.message || "Gagal berlangganan!");
+                setShowPopup(true);
+                setTimeout(() => {
+                    setShowPopup(false);
+                    setErrorMessage("");
+                }, 3000);
+            }
+        } catch (error) {
+            setErrorMessage("Terjadi kesalahan. Coba lagi nanti!");
+            setShowPopup(true);
+            setTimeout(() => {
+                setShowPopup(false);
+                setErrorMessage("");
+            }, 3000);
+            console.error("Subscription Error:", error);
+        }
+    };    
 
     const features = [
         {
@@ -111,7 +143,7 @@ const HomePage = () => {
                         />
                         <button className="newsletter-button" onClick={handleSubscribe}>→</button>
                     </div>
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
                 </div>
             </section>
 
@@ -131,8 +163,8 @@ const HomePage = () => {
 
             {/* Pop-up Message */}
             {showPopup && (
-                <div className="popup-message">
-                    <p>✅ Berhasil berlangganan! Cek emailmu untuk mendapatkan informasi terbaru.</p>
+                <div className={`popup-message ${errorMessage ? "error" : "success"}`}>
+                    <p>{errorMessage ? `❌ ${errorMessage}` : "✅ Berhasil berlangganan! Cek emailmu untuk mendapatkan informasi terbaru."}</p>
                 </div>
             )}
         </div>

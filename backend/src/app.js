@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "https://healthsense-fastresp.vercel.app" }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());

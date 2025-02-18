@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FeatureCard from '../components/FeatureCard';
 import "../styles/HomePage.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://healthsense-production.up.railway.app";
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://healthsense-production.up.railway.app';
 
 const HomePage = () => {
     const navigate = useNavigate();

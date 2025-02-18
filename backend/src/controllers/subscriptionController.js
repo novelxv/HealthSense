@@ -1,4 +1,5 @@
 const knex = require("../database/knex");
+const sendEmail = require("../services/emailService");
 
 const subscribeEmail = async (req, res) => {
   const { email } = req.body;
@@ -15,6 +16,19 @@ const subscribeEmail = async (req, res) => {
     }
 
     await knex("subscribers").insert({ email });
+
+    // Kirim email konfirmasi
+    const subject = "Berlangganan HealthSense";
+    const text = `
+      <h2>Selamat Bergabung di HealthSense!</h2>
+      <p>Terima kasih telah berlangganan notifikasi kualitas udara dari HealthSense.</p>
+      <p>Jaga kesehatanmu dengan informasi real-time mengenai kualitas udara di sekitarmu.</p>
+      <br/>
+      <p>Salam sehat,</p>
+      <p><b>Tim HealthSense</b></p>
+    `;
+    await sendEmail(email, subject, text);
+
     res.json({ message: "Berhasil berlangganan!" });
   } catch (error) {
     console.error("Database Error:", error);

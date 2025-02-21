@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./SearchBar.css";
 
-export default function SearchBar({ isNavbar, content, allLocations }) {
+export default function SearchBar({ isNavbar, content, articles, onSearch }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const searchRef = useRef(null);
@@ -10,11 +10,17 @@ export default function SearchBar({ isNavbar, content, allLocations }) {
     const value = e.target.value;
     setQuery(value);
 
+    // Pastikan `onSearch` adalah fungsi sebelum dipanggil
+    if (typeof onSearch === "function") {
+      onSearch(value);
+    }
+
     if (value.length > 0) {
-      const filtered = allLocations.filter((loc) =>
-        loc.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filtered.length > 0 ? filtered : ["Kota tidak ditemukan"]);
+      const filtered = articles
+        .map((article) => article.title)
+        .filter((title) => title.toLowerCase().includes(value.toLowerCase()));
+
+      setSuggestions(filtered.length > 0 ? filtered : ["Artikel tidak ditemukan"]);
     } else {
       setSuggestions([]);
     }
@@ -65,7 +71,12 @@ export default function SearchBar({ isNavbar, content, allLocations }) {
             <li
               key={index}
               onClick={() => {
-                if (suggestion !== "Kota tidak ditemukan") setQuery(suggestion);
+                if (suggestion !== "Artikel tidak ditemukan") {
+                  setQuery(suggestion);
+                  if (typeof onSearch === "function") {
+                    onSearch(suggestion);
+                  }
+                }
                 setSuggestions([]);
               }}
             >

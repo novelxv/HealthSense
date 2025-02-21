@@ -36,19 +36,28 @@ const ArticlePage = () => {
   const searchRef = useRef(null);
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/api/education`);
-        const data = await response.json();
-        setArticles(data);
-        setFilteredArticles(data); // Default tampilkan semua artikel
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
-
-    fetchArticles();
-  }, []);
+    useEffect(() => {
+        const fetchArticles = async () => {
+          try {
+            const response = await fetch(`${backendUrl}/api/education`);
+            const data = await response.json();
+            if (Array.isArray(data)) {
+              setArticles(data);
+              setFilteredArticles(data);
+            } else {
+              console.error("Data received is not an array:", data);
+              setArticles([]);
+              setFilteredArticles([]);
+            }
+          } catch (error) {
+            console.error("Error fetching articles:", error);
+            setArticles([]);
+            setFilteredArticles([]);
+          }
+        };
+      
+        fetchArticles();
+      }, []);
 
   const handleSearch = (query) => {
     if (query.trim() === "") {
@@ -62,14 +71,14 @@ const ArticlePage = () => {
     setFilteredArticles(filtered);
   };
 
-  const articleGroups = processArticles(filteredArticles);
+  const articleGroups = processArticles(filteredArticles || []);
 
   return (
     <div>
       <div className="main-content">
         <main className="main">
           <div className="search-container-1" ref={searchRef}>
-            <SearchBar isNavbar={false} content="Jelajahi artikel" allLocations={[]} />
+          <SearchBar isNavbar={false} content="Jelajahi artikel" articles={filteredArticles} onSearch={handleSearch} />
           </div>
           <div className="article-container">
             {articleGroups.map((group, index) => (
@@ -104,6 +113,6 @@ const ArticlePage = () => {
       </div>
     </div>
   );
-};
+})};
 
 export default ArticlePage;

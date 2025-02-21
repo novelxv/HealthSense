@@ -1,8 +1,19 @@
 const knex = require("../database/knex");
 
-// Simpan data AQI untuk beberapa hari (forecast dari WAQI)
 const saveAQIData = async (data) => {
-    return await knex("aqi_history").insert(data);
+    return await Promise.all(data.map(async (entry) => {
+        await knex("aqi_history")
+            .insert(entry)
+            .onConflict(["city", "recorded_at"])
+            .merge({
+                aqi: entry.aqi,
+                pm25: entry.pm25,
+                pm10: entry.pm10,
+                no2: entry.no2,
+                co: entry.co,
+                temperature: entry.temperature,
+            });
+    }));
 };
 
 // Ambil data AQI hanya untuk hari ini

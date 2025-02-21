@@ -1,18 +1,24 @@
 const knex = require("../database/knex");
 
 const getAllEducationArticles = async () => {
-  return await knex("education").select("*").orderBy("created_at", "desc");
+    return await knex("education").select("*");
 };
 
 const getEducationByCategory = async (category) => {
-  return await knex("education").where("category", category).orderBy("created_at", "desc");
+    return await knex("education").where({ category }).select("*");
 };
 
 const getEducationByLocation = async (location) => {
-  return await knex("education")
-    .where("location", location)
-    .orWhereNull("location")
-    .orderBy("created_at", "desc");
+    return await knex("education").where({ location }).select("*");
 };
 
-module.exports = { getAllEducationArticles, getEducationByCategory, getEducationByLocation };
+const getEducationById = async (id) => {
+    return await knex("education").where({ id }).first();
+};
+
+module.exports = {
+    getAllEducationArticles,
+    getEducationByCategory,
+    getEducationByLocation,
+    getEducationById,
+};

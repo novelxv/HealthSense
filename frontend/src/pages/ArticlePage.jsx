@@ -3,13 +3,14 @@ import { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://healthsense-production.up.railway.app';
+
 const processArticles = (articles) => {
   const articleGroups = [];
   let i = 0;
 
   while (i < articles.length) {
     if ((articleGroups.length % 2) === 0) {
-      // Even-indexed groups: 3 small articles
       const group = articles.slice(i, i + 3).map(article => ({
         ...article,
         isLarge: false,
@@ -17,7 +18,6 @@ const processArticles = (articles) => {
       articleGroups.push(group);
       i += 3;
     } else {
-      // Odd-indexed groups: 1 large + 1 small
       const group = articles.slice(i, i + 2).map((article, index) => ({
         ...article,
         isLarge: index === 0,
@@ -30,92 +30,24 @@ const processArticles = (articles) => {
   return articleGroups;
 };
 
-
 const ArticlePage = () => {
   const [query, setQuery] = useState("");
-  const articles = [
-    {
-      id: 1,
-      title: "Liburan di Alam Kota Jakarta yang Bersih!",
-      image: "../../AirTerjun.png",
-      location: "Jakarta Barat",
-      category: "Travel",
-      content: "true",
-    },
-    {
-      id: 2,
-      title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../AirTerjun2.png",
-      location: "HariiniDidunia.com",
-      category: "Highlight",
-      content: "false",
-    },
-    {
-      id: 3,
-      title: "Tips Menjaga Kebersihan di Perkotaan",
-      image: "../../AirTerjun3.jpg",
-      location: "Kebersihan.id",
-      category: "Lifestyle",
-      content: "false",
-    },
-    {
-      id: 4,
-      title: "10 Tempat Wisata Ramah Lingkungan di Indonesia",
-      image: "../../AirTerjun4.jpg",
-      location: "EcoTraveler",
-      category: "Eco-Tourism",
-      content: "false",
-    },
-    {
-      id: 5,
-      title: "Kota Jakarta dan Upayanya Meningkatkan Kualitas Udara",
-      image: "../../AirTerjun5.jpg",
-      location: "GreenJakarta",
-      category: "Environment",
-      content: "false",
-    },
-    {
-      id: 6,
-      title: "Intip 10 Kota Terbersih di Dunia, Keren Banget!",
-      image: "../../AirTerjun6.jpg",
-      location: "HariiniDidunia.com",
-      category: "Highlight",
-      content: "true",
-    },
-    {
-      id: 7,
-      title: "Panduan Liburan Hemat di Kota Jakarta",
-      image: "../../AirTerjun7.jpg",
-      location: "Jakarta Wisata",
-      category: "Travel",
-      content: "false",
-    },
-    {
-      id: 8,
-      title: "5 Kebiasaan Sehari-hari untuk Mengurangi Polusi",
-      image: "../../AirTerjun8.jpg",
-      location: "Lingkungan Sehat",
-      category: "Tips",
-      content: "false",
-    },
-    {
-      id: 9,
-      title: "Bagaimana Masyarakat Berkontribusi dalam Kebersihan Kota",
-      image: "../../AirTerjun9.jpg",
-      location: "Komunitas Hijau",
-      category: "Community",
-      content: "false",
-    },
-    {
-      id: 10,
-      title: "Tips Liburan Hijau untuk Generasi Z",
-      image: "../../AirTerjun10.jpg",
-      location: "EcoGeneration",
-      category: "Lifestyle",
-      content: "false",
-    },
-  ];
+  const [articles, setArticles] = useState([]);
   const searchRef = useRef(null);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/education`);
+        const data = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
+
+    fetchArticles();
+  }, []);
 
   const articleGroups = processArticles(articles);
 
@@ -145,7 +77,7 @@ const ArticlePage = () => {
                       <div className="article-meta">
                         <div className="location">
                           <span>🌐</span>
-                          <span>{article.location}</span>
+                          <span>{article.location || "Tidak diketahui"}</span>
                         </div>
                         <span className="category">{article.category}</span>
                       </div>

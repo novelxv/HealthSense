@@ -49,10 +49,17 @@ const getYearlyAQI = async (city) => {
     );
 };
 
+const getAllAQIData = async (city) => {
+    return await knex("aqi_history")
+        .where("city", city)
+        .orderBy("recorded_at", "desc");
+};
+
 module.exports = {
     saveAQIData,
     getCurrentAQI,
     getWeeklyAQI,
     getMonthlyAQI,
-    getYearlyAQI
+    getYearlyAQI,
+    getAllAQIData
 };

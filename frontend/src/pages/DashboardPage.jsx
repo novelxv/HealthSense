@@ -56,9 +56,11 @@ export default function DashboardPage() {
     fetchData();
   }, [selectedCity]);
 
-  const handleDownload = () => {
+  const handleDownload = (format) => {
+    const apiUrl = `https://healthsense-production.up.railway.app/api/export/${format}/${selectedCity}`;
+    window.open(apiUrl, "_blank");
     setShowDownloadPopup(true);
-    setTimeout(() => setShowDownloadPopup(false), 3000); // Auto close after 3 sec
+    setTimeout(() => setShowDownloadPopup(false), 3000);
   };
 
   return (
@@ -88,8 +90,14 @@ export default function DashboardPage() {
           </section>
 
           <div className="download-container">
-            <button className="download-button" onClick={handleDownload}>
-              <span>Download semua data</span>
+            <button className="download-button" onClick={() => handleDownload("pdf")}>
+              <span>Download PDF</span>
+              <svg className="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            <button className="download-button csv-button" onClick={() => handleDownload("csv")}>
+              <span>Download CSV</span>
               <svg className="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>

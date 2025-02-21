@@ -3,44 +3,72 @@ import { AlertTriangle, Cloudy } from "lucide-react";
 import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "./WeatherMap.css";
 
-const dummyData = {
-  Jakarta: { lat: -6.2088, lng: 106.8456, temp: 30, aqi: 80, condition: "Berawan" },
-  Bandung: { lat: -6.9175, lng: 107.6191, temp: 24, aqi: 50, condition: "Cerah" },
-  Surabaya: { lat: -7.2504, lng: 112.7688, temp: 32, aqi: 100, condition: "Asap" },
-  Medan: { lat: 3.5952, lng: 98.6722, temp: 28, aqi: 70, condition: "Hujan" },
-};
-
-export default function WeatherMap({ selectedCity }) {
+export default function WeatherMap({ selectedCity, weatherData, aqiData, loading, error }) {
   const [showAQIPopup, setShowAQIPopup] = useState(false);
+
+  if (loading) {
+    return <p className="loading-text">Memuat data...</p>;
+  }
+
+  if (error || !weatherData || !aqiData) {
+    return <p className="error-text">Data tidak tersedia untuk {selectedCity}</p>;
+  }
+
+  // Notifikasi peringatan berdasarkan AQI dan suhu
+  let warningMessage = "";
+  if (aqiData.aqi >= 150) {
+    warningMessage = "Udara tidak sehat! Gunakan masker saat keluar rumah.";
+  } else if (aqiData.aqi >= 100) {
+    warningMessage = "Udara kurang sehat untuk kelompok sensitif.";
+  } else if (weatherData.temperature >= 35) {
+    warningMessage = "Suhu tinggi! Tetap terhidrasi dan hindari sinar matahari langsung.";
+  }
+
+  // delete later
+  const dummyData = {
+    Jakarta: { lat: -6.2088, lng: 106.8456, temp: 30, aqi: 80, condition: "Berawan" },
+    Bandung: { lat: -6.9175, lng: 107.6191, temp: 24, aqi: 50, condition: "Cerah" },
+    Surabaya: { lat: -7.2504, lng: 112.7688, temp: 32, aqi: 100, condition: "Asap" },
+    Medan: { lat: 3.5952, lng: 98.6722, temp: 28, aqi: 70, condition: "Hujan" },
+    Bali: { lat: -8.3405, lng: 115.0920, temp: 28, aqi: 70, condition: "Hujan" },
+  };
+
   const cityData = dummyData[selectedCity] || dummyData["Jakarta"];
 
   return (
     <div className="weather-section">
       <div className="weather-info">
         <div className="weather-card">
-          <p className="location">{selectedCity}, Jawa Barat</p>
+          <p className="location">{selectedCity}</p>
           <div className="weather-content">
             <div className="temperature-section">
               <Cloudy />
               <div>
-                <p className="temperature">{cityData.temp}°C</p>
-                <p className="condition">{cityData.condition}</p>
+                <p className="temperature">{weatherData.temperature}°C</p>
+                <p className="condition">Suhu saat ini</p>
               </div>
             </div>
             <div className="divider"></div>
             <div className="aqi-section">
               <p className="aqi-value">
-                {cityData.aqi} <span className="aqi-label">AQI</span>
+                {aqiData.aqi} <span className="aqi-label">AQI</span>
               </p>
               <span className="info-icon" onClick={() => setShowAQIPopup(true)}>?</span>
             </div>
           </div>
         </div>
 
-        <div className="warning-banner">
-          <AlertTriangle className="warning-icon" />
-          <p>Perhatikan kualitas udara di sekitarmu! Pastikan tetap aman dan sehat.</p>
-        </div>
+        {warningMessage && (
+          <div className="warning-banner">
+            <AlertTriangle className="warning-icon" />
+            <p>{warningMessage}</p>
+          </div>
+        )}
+        {!warningMessage && (
+          <div className="warning-banner">
+            <p>Tidak ada peringatan saat ini.</p>
+          </div>
+        )}
       </div>
 
       {showAQIPopup && (

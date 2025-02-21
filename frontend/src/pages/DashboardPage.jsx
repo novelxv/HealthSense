@@ -110,7 +110,7 @@ export default function DashboardPage() {
             </div>
           )}
 
-          <HealthRecommendations />
+          <HealthRecommendations weatherData={weatherData} aqiData={aqiData} />
         </main>
       </div>
     </div>

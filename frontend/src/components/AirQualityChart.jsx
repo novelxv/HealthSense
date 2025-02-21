@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import { Line } from "react-chartjs-2"
+import { useState, useEffect, useMemo } from "react";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,98 +10,93 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js"
-import "./AirQualityChart.css"
+} from "chart.js";
+import "./AirQualityChart.css";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
-
-// Generate dummy AQI data
-const generateYearlyData = () => {
-  const months = 12
-  const data = {}
-  const cities = ["Jakarta", "Bandung", "Surabaya", "Medan"]
-
-  cities.forEach((city) => {
-    data[city] = Array.from({ length: months * 30 }, () => Math.floor(Math.random() * (100 - 40) + 40))
-  })
-
-  return data
-}
-
-const cityAQIData = generateYearlyData()
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 export default function AirQualityChart({ selectedCity }) {
-  const [viewMode, setViewMode] = useState("yearly")
-  const currentDate = new Date()
+  const [viewMode, setViewMode] = useState("yearly");
+  const [aqiData, setAqiData] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const getDateRangeData = (mode) => {
-    const data = cityAQIData[selectedCity]
-    const today = new Date()
+  useEffect(() => {
+    const fetchAQIData = async () => {
+      setLoading(true);
+      setError("");
 
-    switch (mode) {
-      case "weekly":
-        const dayOfWeek = today.getDay()
-        const days = Array.from({ length: 7 }, (_, i) => {
-          const date = new Date(today)
-          date.setDate(date.getDate() - dayOfWeek + i)
-          return date.toLocaleDateString("id-ID", { weekday: "short" })
-        })
-        return {
-          labels: days,
-          data: data.slice(-7),
+      let endpoint = "";
+      switch (viewMode) {
+        case "weekly":
+          endpoint = `https://healthsense-production.up.railway.app/api/health/weekly/${selectedCity}`;
+          break;
+        case "monthly":
+          endpoint = `https://healthsense-production.up.railway.app/api/health/monthly/${selectedCity}`;
+          break;
+        case "yearly":
+          endpoint = `https://healthsense-production.up.railway.app/api/health/yearly/${selectedCity}`;
+          break;
+        default:
+          setLoading(false);
+          return;
+      }
+
+      try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Gagal mengambil data AQI");
         }
 
-      case "monthly":
-        const weeksInMonth = Array.from({ length: 4 }, (_, i) => `Minggu ${i + 1}`)
-        const weeklyData = Array.from(
-          { length: 4 },
-          (_, i) => data.slice(-28 + i * 7, -21 + i * 7).reduce((a, b) => a + b, 0) / 7,
-        )
-        return {
-          labels: weeksInMonth,
-          data: weeklyData,
-        }
+        // Hapus duplikasi berdasarkan tanggal
+        const uniqueData = [];
+        const uniqueLabels = new Set();
 
-      case "yearly":
-        const months = Array.from({ length: 12 }, (_, i) => {
-          const date = new Date(today.getFullYear(), i, 1)
-          return date.toLocaleDateString("id-ID", { month: "short" }).toUpperCase()
-        })
-        const monthlyData = Array.from(
-          { length: 12 },
-          (_, i) => data.slice(i * 30, (i + 1) * 30).reduce((a, b) => a + b, 0) / 30,
-        )
-        return {
-          labels: months,
-          data: monthlyData,
-        }
+        data.forEach((entry) => {
+          const label = entry.week || entry.month || entry.day; // Sesuaikan field tanggal
+          if (!uniqueLabels.has(label)) {
+            uniqueLabels.add(label);
+            uniqueData.push({ label, avg_aqi: entry.avg_aqi });
+          }
+        });
 
-      default:
-        return { labels: [], data: [] }
-    }
-  }
+        // Simpan hasil yang telah dibersihkan
+        setAqiData(uniqueData.map((d) => d.avg_aqi));
+        setLabels(Array.from(uniqueLabels));
+      } catch (err) {
+        setError(err.message);
+        setAqiData([]);
+        setLabels([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAQIData();
+  }, [selectedCity, viewMode]);
 
   const chartData = useMemo(() => {
-    const { labels, data } = getDateRangeData(viewMode)
-
     return {
       labels,
       datasets: [
         {
           label: `AQI ${selectedCity}`,
-          data: data,
+          data: aqiData,
           borderColor: "#4A3AFF",
           backgroundColor: "rgba(74, 58, 255, 0.1)",
           fill: true,
           tension: 0.4,
-          pointRadius: 4,
+          pointRadius: aqiData.length ? 4 : 0, // Sembunyikan titik jika tidak ada data
           pointBackgroundColor: "#4A3AFF",
           pointBorderColor: "#fff",
           pointBorderWidth: 2,
         },
       ],
-    }
-  }, [selectedCity, viewMode, getDateRangeData])
+    };
+  }, [aqiData, labels]);
 
   const options = {
     responsive: true,
@@ -109,27 +104,16 @@ export default function AirQualityChart({ selectedCity }) {
     scales: {
       y: {
         beginAtZero: true,
-        max: 100,
-        grid: {
-          color: "rgba(0, 0, 0, 0.05)",
-        },
-        ticks: {
-          color: "#6B7280",
-        },
+        grid: { color: "rgba(0, 0, 0, 0.05)" },
+        ticks: { color: "#6B7280" },
       },
       x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#6B7280",
-        },
+        grid: { display: false },
+        ticks: { color: "#6B7280" },
       },
     },
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
         backgroundColor: "#1F2937",
         titleColor: "#fff",
@@ -137,18 +121,12 @@ export default function AirQualityChart({ selectedCity }) {
         padding: 12,
         displayColors: false,
         callbacks: {
-          title: (context) => {
-            const value = context[0].raw
-            return `AQI ${value}`
-          },
-          label: (context) => {
-            const date = new Date()
-            return date.toLocaleDateString("id-ID", { month: "long", year: "numeric" })
-          },
+          title: (context) => `AQI ${context[0].raw}`,
+          label: (context) => `Tanggal: ${context.label}`,
         },
       },
     },
-  }
+  };
 
   return (
     <div className="chart-container">
@@ -179,8 +157,14 @@ export default function AirQualityChart({ selectedCity }) {
         </div>
       </div>
       <div className="chart-wrapper">
-        <Line options={options} data={chartData} />
+        {loading ? (
+          <p className="loading-text">Memuat data...</p>
+        ) : error ? (
+          <p className="error-text">Error: {error}</p>
+        ) : (
+          <Line options={options} data={chartData} />
+        )}
       </div>
     </div>
-  )
+  );
 }

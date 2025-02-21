@@ -15,6 +15,10 @@ const HomePage = () => {
         navigate("/dashboard");
     };
 
+    const handleNavigation = (section) => {
+        navigate(`/dashboard#${section}`);
+    };    
+
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
@@ -77,21 +81,21 @@ const HomePage = () => {
             title: "Cegah Lebih Awal, Lindungi Diri",
             description: "Dengan analisis data lingkungan dan tren cuaca, ketahui kapan udara buruk dapat meningkatkan risiko gangguan pernapasan.",
             buttonText: "Cek sekarang",
-            link: "/dashboard"
+            link: "/dashboard#metrics"
         },
         {
             icon: "../../Warning.png",
-            title: "Cegah Lebih Awal, Lindungi Diri",
-            description: "Dengan analisis data lingkungan dan tren cuaca, ketahui kapan udara buruk dapat meningkatkan risiko gangguan pernapasan.",
+            title: "Notifikasi Peringatan Dini",
+            description: "Dapatkan pemberitahuan langsung saat kualitas udara di sekitarmu memburuk, sehingga kamu bisa mengambil tindakan pencegahan.",
             buttonText: "Cek sekarang",
-            link: "/dashboard"
+            link: "/dashboard#notifications"
         },
         {
             icon: "../../Magnifying.png",
             title: "Pantau Tren, Ambil Keputusan Lebih Baik",
             description: "Jelajahi data kualitas udara dan cuaca dalam bentuk grafik interaktif untuk memahami bagaimana perubahan lingkungan memengaruhi kesehatan Anda",
             buttonText: "Cek sekarang",
-            link: "/dashboard"
+            link: "/dashboard#trends"
         }
     ];
 
@@ -156,9 +160,14 @@ const HomePage = () => {
                 </div>
                 <div className="features-grid">
                     {features.map((feature, index) => (
-                        <FeatureCard key={index} {...feature} />
+                        <FeatureCard 
+                            key={index} 
+                            {...feature} 
+                            onClick={() => navigate(feature.link)} // 🔹 Gunakan `navigate`
+                        />
                     ))}
                 </div>
+
             </section>
 
             {/* Pop-up Message */}

@@ -4,12 +4,24 @@ import MetricsGrid from "../components/MetricsGrid";
 import HealthRecommendations from "../components/HealthRecommendation";
 import NotificationSignup from "../components/NotificationSignup";
 import SearchBar from "../components/SearchBar.jsx";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import "../styles/DashboardPage.css";
+import { useLocation } from "react-router-dom";
 
 export default function DashboardPage() {
   const [showDownloadPopup, setShowDownloadPopup] = useState(false);
   const [selectedCity, setSelectedCity] = useState("Jakarta");
+
+  const location = useLocation();
+
+    useEffect(() => {
+        if (location.hash) {
+            const element = document.querySelector(location.hash);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [location]);
 
   const handleDownload = () => {
     setShowDownloadPopup(true);
@@ -20,7 +32,7 @@ export default function DashboardPage() {
     <div className="app">
       <div className="bg-image">
         <main className="main">
-          <section className="dashboard-section">
+          <section className="dashboard-section" id="metrics">
             <SearchBar
               isNavbar={false}
               content="Masukkan lokasi"
@@ -32,9 +44,11 @@ export default function DashboardPage() {
 
           <MetricsGrid selectedCity={selectedCity} />
           
-          <NotificationSignup />
+          <section id="notifications"> {/* 🔹 Tambahkan ID */}
+            <NotificationSignup />
+          </section>
 
-          <section className="trends-section">
+          <section className="trends-section" id="trends">
             <div className="features-title-wrapper">
               <h2 className="features-title">
                 <span className="highlight">Tren Cuaca dan Udara</span>

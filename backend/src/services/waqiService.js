@@ -2,29 +2,26 @@ const axios = require("axios");
 
 const getAirQualityByCity = async (city) => {
     try {
-        const apiKey = process.env.WAQI_API_KEY;
-        const response = await axios.get(
-            `https://api.waqi.info/feed/${city}/?token=${apiKey}`
-        );
+        const token = process.env.WAQI_API_KEY;
+        const response = await axios.get(`https://api.waqi.info/feed/${city}/?token=${token}`);
         
-        if (response.data.status !== "ok") {
-            console.error("Error fetching AQI data:", response.data);
-            return null;
-        }
+        if (response.data.status !== "ok") return null;
         
-        const airData = response.data.data;
         return {
-            city: airData.city.name,
-            aqi: airData.aqi,
-            pm25: airData.iaqi.pm25 ? airData.iaqi.pm25.v : null,
-            pm10: airData.iaqi.pm10 ? airData.iaqi.pm10.v : null,
-            no2: airData.iaqi.no2 ? airData.iaqi.no2.v : null,
-            co: airData.iaqi.co ? airData.iaqi.co.v : null,
-            timestamp: airData.time.iso,
-            forecast: airData.forecast ? airData.forecast.daily.pm25 : [],
+            city: response.data.data.city.name,
+            aqi: response.data.data.aqi,
+            pm25: response.data.data.iaqi.pm25?.v || null,
+            pm10: response.data.data.iaqi.pm10?.v || null,
+            no2: response.data.data.iaqi.no2?.v || null,
+            co: response.data.data.iaqi.co?.v || null,
+            timestamp: response.data.data.time.iso,
+            forecast: response.data.data.forecast.daily.pm25.map(day => ({
+                day: day.day,
+                avg: day.avg
+            }))
         };
     } catch (error) {
-        console.error("Error fetching air quality data:", error);
+        console.error("Error fetching AQI data:", error);
         return null;
     }
 };

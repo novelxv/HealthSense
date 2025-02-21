@@ -36,7 +36,6 @@ export default function DashboardPage() {
             <SearchBar
               isNavbar={false}
               content="Masukkan lokasi"
-              allLocations={["Jakarta", "Bandung", "Surabaya", "Medan"]}
               setSelectedCity={setSelectedCity}
             />
             <WeatherMap selectedCity={selectedCity} />

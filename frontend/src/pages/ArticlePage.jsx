@@ -1,5 +1,5 @@
 import "../styles/ArticlePage.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
 
@@ -31,8 +31,8 @@ const processArticles = (articles) => {
 };
 
 const ArticlePage = () => {
+  const [query, setQuery] = useState("");
   const [articles, setArticles] = useState([]);
-  const [filteredArticles, setFilteredArticles] = useState([]);
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +41,6 @@ const ArticlePage = () => {
         const response = await fetch(`${backendUrl}/api/education`);
         const data = await response.json();
         setArticles(data);
-        setFilteredArticles(data); // Default tampilkan semua artikel
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -50,19 +49,7 @@ const ArticlePage = () => {
     fetchArticles();
   }, []);
 
-  const handleSearch = (query) => {
-    if (query.trim() === "") {
-      setFilteredArticles(articles); // Reset jika kosong
-      return;
-    }
-
-    const filtered = articles.filter((article) =>
-      article.title.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredArticles(filtered);
-  };
-
-  const articleGroups = processArticles(filteredArticles);
+  const articleGroups = processArticles(articles);
 
   return (
     <div>

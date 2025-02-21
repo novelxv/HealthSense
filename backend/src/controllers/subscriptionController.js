@@ -19,15 +19,17 @@ const subscribeEmail = async (req, res) => {
 
     // Kirim email konfirmasi
     const subject = "Berlangganan HealthSense";
-    const text = `
-      <h2>Selamat Bergabung di HealthSense!</h2>
-      <p>Terima kasih telah berlangganan notifikasi kualitas udara dari HealthSense.</p>
-      <p>Jaga kesehatanmu dengan informasi real-time mengenai kualitas udara di sekitarmu.</p>
-      <br/>
-      <p>Salam sehat,</p>
-      <p><b>Tim HealthSense</b></p>
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; padding: 20px;">
+        <h2 style="color: #007bff;">Selamat Bergabung di HealthSense!</h2>
+        <p>Terima kasih telah berlangganan notifikasi kualitas udara dari HealthSense.</p>
+        <p>Jaga kesehatanmu dengan informasi real-time mengenai kualitas udara di sekitarmu.</p>
+        <br/>
+        <p>Salam sehat,</p>
+        <p><b>Tim HealthSense</b></p>
+      </div>
     `;
-    await sendEmail(email, subject, text);
+    await sendEmail(email, subject, htmlContent);
 
     res.json({ message: "Berhasil berlangganan!" });
   } catch (error) {

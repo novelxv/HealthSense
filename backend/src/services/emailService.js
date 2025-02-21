@@ -4,22 +4,25 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
-  secure: false, // Gunakan TLS
+  secure: false, // harus false untuk TLS (port 587)
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: {
+    rejectUnauthorized: false, // Hindari masalah SSL/TLS
+  },
 });
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, htmlContent) => {
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"HealthSense" <${process.env.SMTP_USER}>`,
       to,
       subject,
-      text,
+      html: htmlContent,
     });
-    console.log(`📩 Email terkirim ke ${to}`);
+    console.log(`📩 Email terkirim ke ${to}: ${info.response}`);
   } catch (error) {
     console.error("❌ Gagal mengirim email:", error);
   }

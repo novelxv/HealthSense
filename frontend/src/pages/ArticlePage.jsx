@@ -1,6 +1,6 @@
 import "../styles/ArticlePage.css";
-import { useState, useRef, useEffect } from "react";
-import SearchBar from "../components/SearchBar";
+import { useState, useEffect, useRef } from "react";
+import SearchBarArticle from "../components/SearchBarArticle";
 import { Link } from "react-router-dom";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://healthsense-production.up.railway.app';
@@ -31,8 +31,8 @@ const processArticles = (articles) => {
 };
 
 const ArticlePage = () => {
-  const [query, setQuery] = useState("");
   const [articles, setArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const ArticlePage = () => {
         const response = await fetch(`${backendUrl}/api/education`);
         const data = await response.json();
         setArticles(data);
+        setFilteredArticles(data);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -49,19 +50,22 @@ const ArticlePage = () => {
     fetchArticles();
   }, []);
 
-  const articleGroups = processArticles(articles);
+  const articleGroups = processArticles(filteredArticles);
 
   return (
     <div>
       <div className="main-content">
         <main className="main">
           <div className="search-container-1" ref={searchRef}>
-            <SearchBar isNavbar={false} content="Jelajahi artikel" allLocations={[]} />
+            <SearchBarArticle 
+              articles={articles} 
+              setFilteredArticles={setFilteredArticles} 
+            />
           </div>
           <div className="article-container">
             {articleGroups.map((group, index) => (
               <div className="article-group" key={index}>
-                {group.map((article, idx) => (
+                {group.map((article) => (
                   <Link
                     key={article.id}
                     to={`/articles/${article.id}`}

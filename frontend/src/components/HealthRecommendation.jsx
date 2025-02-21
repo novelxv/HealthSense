@@ -9,8 +9,8 @@ export default function HealthRecommendations({ weatherData, aqiData }) {
     );
   }
 
-  const { temperature } = weatherData;
-  const { aqi } = aqiData;
+  const { temperature } = weatherData.temperature;
+  const { aqi } = aqiData.aqi;
 
   let predictedDiseases = [];
   let healthRecommendations = [];

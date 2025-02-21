@@ -70,7 +70,7 @@ export default function DashboardPage() {
             <WeatherMap selectedCity={selectedCity} weatherData={weatherData} aqiData={aqiData} loading={loading} error={error} />
           </section>
 
-          <MetricsGrid selectedCity={selectedCity} />
+          <MetricsGrid aqiData={aqiData} loading={loading} error={error} />
           
           <section id="notifications">
             <NotificationSignup />

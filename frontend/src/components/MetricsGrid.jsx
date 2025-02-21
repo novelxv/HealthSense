@@ -1,47 +1,15 @@
-import { Line } from "react-chartjs-2"
-import "./MetricsGrid.css"
+import "./MetricsGrid.css";
 
-const sparklineOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  scales: {
-    x: {
-      display: false,
-    },
-    y: {
-      display: false,
-    },
-  },
-  elements: {
-    point: {
-      radius: 0,
-    },
-  },
-}
+export default function MetricsGrid({ aqiData, loading, error }) {
+  if (loading) return <p className="loading-text">Memuat data...</p>;
+  if (error) return <p className="error-text">Data tidak tersedia.</p>;
 
-const sparklineData = {
-  labels: Array.from({ length: 20 }, (_, i) => i),
-  datasets: [
-    {
-      data: Array.from({ length: 20 }, () => Math.random() * 100 + 500),
-      borderColor: "rgb(59, 130, 246)",
-      borderWidth: 2,
-      fill: false,
-    },
-  ],
-}
-
-export default function MetricsGrid() {
   const metrics = [
-    { title: "Kadar PM2.5", value: "635", unit: "µg/m³"},
-    { title: "Kadar PM10", value: "635", unit: "µg/m³"},
-    { title: "Kadar NO2", value: "635", unit: "PPB"},
-    { title: "Kadar CO", value: "635", unit: "PPM"},
-  ]
+    { title: "Kadar PM2.5", value: aqiData?.pm25 ?? "-", unit: "µg/m³" },
+    { title: "Kadar PM10", value: aqiData?.pm10 ?? "-", unit: "µg/m³" },
+    { title: "Kadar NO2", value: aqiData?.no2 ?? "-", unit: "PPB" },
+    { title: "Kadar CO", value: aqiData?.co ?? "-", unit: "PPM" },
+  ];
 
   return (
     <div className="metrics-grid">
@@ -54,11 +22,11 @@ export default function MetricsGrid() {
           <div className="metric-content">
             <div className="metric-value">
               <span className="value">{metric.value}</span>
-              <span className="unit">{metric.unit}</span>
+              <span className="unit">{metric.value !== "-" ? metric.unit : ""}</span>
             </div>
           </div>
         </div>
       ))}
     </div>
-  )
+  );
 }

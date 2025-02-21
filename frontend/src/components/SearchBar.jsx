@@ -9,16 +9,17 @@ export default function SearchBar({ isNavbar, content, articles, onSearch }) {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setQuery(value);
-  
+
+    // Pastikan `onSearch` adalah fungsi sebelum dipanggil
     if (typeof onSearch === "function") {
       onSearch(value);
     }
-  
-    if (value.length > 0 && Array.isArray(articles)) {
+
+    if (value.length > 0) {
       const filtered = articles
         .map((article) => article.title)
         .filter((title) => title.toLowerCase().includes(value.toLowerCase()));
-  
+
       setSuggestions(filtered.length > 0 ? filtered : ["Artikel tidak ditemukan"]);
     } else {
       setSuggestions([]);

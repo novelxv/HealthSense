@@ -12,6 +12,9 @@ export default function HealthRecommendations({ weatherData, aqiData }) {
   const { temperature } = weatherData.temperature;
   const { aqi } = aqiData.aqi;
 
+  // debug
+  console.log("RECOM", temperature, aqi);
+
   let predictedDiseases = [];
   let healthRecommendations = [];
 

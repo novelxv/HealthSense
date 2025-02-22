@@ -10,6 +10,7 @@ const getWeatherByCity = async (city) => {
         return {
             city: response.data.name,
             temperature: response.data.main.temp,
+            coord: response.data.coord
         };
     } catch (error) {
         console.error("Error fetching weather data:", error);

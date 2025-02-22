@@ -14,6 +14,8 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
     return <p className="error-text">Data tidak tersedia untuk {selectedCity}</p>;
   }
 
+  const cityCoordinates = weatherData?.coord || { lat: -6.2088, lon: 106.8456 }; // Default: Jakarta
+
   // Notifikasi peringatan berdasarkan AQI dan suhu
   let warningMessage = "";
   if (aqiData.aqi >= 150) {
@@ -23,17 +25,6 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
   } else if (weatherData.temperature >= 35) {
     warningMessage = "Suhu tinggi! Tetap terhidrasi dan hindari sinar matahari langsung.";
   }
-
-  // delete later
-  const dummyData = {
-    Jakarta: { lat: -6.2088, lng: 106.8456, temp: 30, aqi: 80, condition: "Berawan" },
-    Bandung: { lat: -6.9175, lng: 107.6191, temp: 24, aqi: 50, condition: "Cerah" },
-    Surabaya: { lat: -7.2504, lng: 112.7688, temp: 32, aqi: 100, condition: "Asap" },
-    Medan: { lat: 3.5952, lng: 98.6722, temp: 28, aqi: 70, condition: "Hujan" },
-    Bali: { lat: -8.3405, lng: 115.0920, temp: 28, aqi: 70, condition: "Hujan" },
-  };
-
-  const cityData = dummyData[selectedCity] || dummyData["Jakarta"];
 
   return (
     <div className="weather-section">
@@ -58,13 +49,12 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
           </div>
         </div>
 
-        {warningMessage && (
+        {warningMessage ? (
           <div className="warning-banner">
             <AlertTriangle className="warning-icon" />
             <p>{warningMessage}</p>
           </div>
-        )}
-        {!warningMessage && (
+        ) : (
           <div className="warning-banner">
             <p>Tidak ada peringatan saat ini.</p>
           </div>
@@ -91,15 +81,16 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
           </div>
         </div>
       )}
+
       <div className="map-container">
-        <MapContainer center={[cityData.lat, cityData.lng]} zoom={10} className="map">
+        <MapContainer center={[cityCoordinates.lat, cityCoordinates.lon]} zoom={10} className="map">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <CircleMarker center={[cityData.lat, cityData.lng]} radius={15} color="red" fillColor="red" fillOpacity={0.4}>
+          <CircleMarker center={[cityCoordinates.lat, cityCoordinates.lon]} radius={15} color="red" fillColor="red" fillOpacity={0.4}>
             <Popup>
-              {selectedCity} <br /> AQI: {cityData.aqi} <br /> {cityData.temp}°C
+              {selectedCity} <br /> AQI: {aqiData.aqi} <br /> {weatherData.temperature}°C
             </Popup>
           </CircleMarker>
         </MapContainer>
@@ -107,5 +98,3 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
     </div>
   );
 }
-
-

@@ -121,7 +121,7 @@ export default function WeatherMap({ selectedCity, weatherData, aqiData, loading
       )}
 
       <div className="map-container">
-        <MapContainer center={[cityCoordinates.lat, cityCoordinates.lon]} zoom={5} className="map">
+        <MapContainer center={[cityCoordinates.lat, cityCoordinates.lon]} zoom={10} className="map">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

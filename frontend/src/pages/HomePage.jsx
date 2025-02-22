@@ -35,7 +35,6 @@ const HomePage = () => {
         }
     
         setErrorMessage(""); // Reset error message
-        console.log("Backend URL:", backendUrl); // debug
         try {
             const response = await fetch(`${backendUrl}/api/subscribe`, {
                 method: "POST",
